@@ -24,8 +24,8 @@ Since the compression scheme was implemented directly in verilog by comparing th
 You can learn the priciples of ANN in http://neuralnetworksanddeeplearning.com/chap2.html. 
 You can build the model from scrach as in `MINSTtutorial.rar` with Matlab, which is helpful for you to learn the neural network knowledge more deeply. <br>
 Or you can use popular deep learning frameworks like tensorflow or pytorch with python, which can help you build different types of nueral network fast. The uploaded code in `ARR_CLF` folder written by me uses pytorch. It can help you quickly train an ANN model by the following command.
-```ch
+```python
 python3 features_clf.py
 ```
-Then, you can also learn the finetue and quantization scheme by changing the parameter `finetune_epochs` and `is_qat`
+Then, you can also learn the finetue and quantization scheme by changing the parameter `finetune_epochs` and `is_qat` in `config.py`.
 
