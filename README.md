@@ -15,4 +15,7 @@ for i = 1:48
   [ann, anntype] = rdann(data_file, 'atr', []);
 end
 ```
-Or you can from scrach as in read_
+Or you can build it from scrach as in `read_data.m`.
+## 2. Preprocessing
+The pre-processing method is described in the paper `"A 2.66µW Clinician-like Cardiac Arrhythmia Watchdog Based on P-QRS-T for Wearable Applications"` including denoising, R-peak detection, and compression scheme.<br>
+With the `WFDB` installed, you can run `denoising.m`, `get_anno.m`, `segmentation.m` and `features.m` sequentially to obtain the pre-processed data and annotations.<br>
