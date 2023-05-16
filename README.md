@@ -19,3 +19,10 @@ Or you can build it from scrach as in `read_data.m`.
 ## 2. Preprocessing
 The pre-processing method is described in the paper `"A 2.66µW Clinician-like Cardiac Arrhythmia Watchdog Based on P-QRS-T for Wearable Applications"` including denoising, R-peak detection, and compression scheme.<br>
 With the `WFDB` installed, you can run `denoising.m`, `get_anno.m`, `segmentation.m` and `features.m` sequentially to obtain the pre-processed data and annotations.<br>
+Since the compression scheme was implemented directly in verilog by comparing the variation of slope defined in Equation (12) in the paper and the distances and amplitutes of the samples, you need to add this feature by yourself in the matlab code `features.m`.
+## 3. ANN Classifier
+You can learn the priciples of ANN in http://neuralnetworksanddeeplearning.com/chap2.html. 
+You can build the model from scrach as in `MINSTtutorial.rar` with Matlab, which is helpful for you to learn the neural network knowledge more deeply. <br>
+Or you can use popular deep learning frameworks like tensorflow or pytorch with python, which can help you build different types of nueral network fast. The uploaded code written by me uses pytorch. 
+
+
