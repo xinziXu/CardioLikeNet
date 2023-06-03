@@ -1,13 +1,15 @@
 database = 0; % 0 mitdb 1 qtdb 2 lued 
 
 if database == 0
-    DS1 = [101, 106, 108, 109, 112, 114, 115, 116, 118, 119, 122, 124, 201, 203, 205, 207, 208, 209, 215, 220, 223, 230];
-    DS2 = [100, 103, 105, 111, 113, 117, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234];
+%     DS1 = [101, 106, 108, 109, 112, 114, 115, 116, 118, 119, 122, 124, 201, 203, 205, 207, 208, 209, 215, 220, 223, 230];
+%     DS2 = [100, 103, 105, 111, 113, 117, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234];
+    DS1 = [101];
+    DS2 = [100];
     original_samplerate = 360;
     present_samplerate = 250;
     %DS1
-    for i = 1:22
-        data_file = strcat('mitdb/', num2str(DS1(i)));
+    for i = 1
+        data_file = strcat('./mitdb/', num2str(DS1(i)));
         data = rdsamp(data_file, [], [], [], [3], []);
         sampletime = (1:length(data)) / original_samplerate;
         resampletime = 1 / present_samplerate:1 / present_samplerate:(length(data) / original_samplerate);
@@ -22,9 +24,10 @@ if database == 0
         % 12bit
 %         ECG_12bit = quan_data(12, data);
 
-        % figure;
-        % plot(ECG_12bit);
+        figure;
+        plot(data);
         data_f = filter_withoutQ(data);
+
         figure;
         plot(data_f)
         save_path = './denoised_mitdbdata/';
@@ -37,8 +40,8 @@ if database == 0
     end
 
     % DS2
-    for i = 1:22
-        data_file = strcat('mitdb/', num2str(DS2(i)));
+    for i = 1
+        data_file = strcat('./mitdb/', num2str(DS2(i)));
         data = rdsamp(data_file, [], [], [], [3], []);
         sampletime = (1:length(data)) / original_samplerate;
         resampletime = 1 / present_samplerate:1 / present_samplerate:(length(data) / original_samplerate);
@@ -48,9 +51,12 @@ if database == 0
         % 12bit
 %         ECG_12bit = quan_data(12, data);
 
-        %     figure;
-        %     plot(ECG_12bit);
+        figure;
+        plot(data);
         data_f = filter_withoutQ(data);
+        
+
+        
         figure;
         plot(data_f)
         save_path = './denoised_mitdbdata/';
@@ -61,7 +67,6 @@ if database == 0
 
         save(strcat(save_path, 'denoised_', num2str(DS2(i)), '_data.mat'), 'data_f');
     end
-
 
 elseif database == 1
 
@@ -562,4 +567,6 @@ function ecg_f = preprocessing_0phase(ecg, lf_enable, hf_enable)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
 end
+
+
 

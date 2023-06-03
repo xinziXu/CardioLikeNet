@@ -2,20 +2,22 @@ database = 0;
 fs = 250;
 
 if database == 0
-    DS1 = [101, 106, 108, 109, 112, 114, 115, 116, 118, 119, 122, 124, 201, 203, 205, 207, 208, 209, 215, 220, 223, 230];
-    DS2 = [100, 103, 105, 111, 113, 117, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234];
-    class = ['N', 'S', 'V', 'F', 'Q'];
+%     DS1 = [101, 106, 108, 109, 112, 114, 115, 116, 118, 119, 122, 124, 201, 203, 205, 207, 208, 209, 215, 220, 223, 230];
+%     DS2 = [100, 103, 105, 111, 113, 117, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234];
+DS1 = [101];
+DS2 = [100];
+class = ['N', 'S', 'V', 'F', 'Q'];
     fs = 250;
 
     % DS1
-    for i = 1:22
+    for i = 1
         lines = [];
         pre = 100;
         post = 150;
-        anno_file = strcat('./annot/', num2str(DS1(i)), '_anno.mat');
+        anno_file = strcat('./annotmitdb/', num2str(DS1(i)), '_anno.mat');
         data_file = strcat('denoised_mitdbdata/', 'denoised_', num2str(DS1(i)), '_data.mat');
         anno = load(anno_file); anno = anno.anno;
-        data = load(data_file); data = data.data;
+        data = load(data_file); data = data.data_f;
         r_peak_loc = rpeak_detection (data, fs);
 
         for j = 2:size(anno, 1) - 1
@@ -35,6 +37,8 @@ if database == 0
 
             peak = anno{j, 1};
             seg = data(peak - pre:peak + post)';
+            % write minmax function to get the data into the range (0,1)
+%           seg = mimax(seg)
             line = [label pre_RR post_RR seg];
             lines = [lines; line];
         end
@@ -51,13 +55,13 @@ if database == 0
     end
 
     %DS2
-    for i = 1:22
+    for i = 1
         lines = [];
         seg_file = strcat('./seg_file/', num2str(DS2(i)), '_seg.mat');
-        anno_file = strcat('./annot/', num2str(DS2(i)), '_anno.mat');
-        data_file = strcat('denoised_data/', 'denoised_', num2str(DS2(i)), '_data.mat');
+        anno_file = strcat('./annotmitdb/', num2str(DS2(i)), '_anno.mat');
+        data_file = strcat('denoised_mitdbdata/', 'denoised_', num2str(DS2(i)), '_data.mat');
         anno = load(anno_file); anno = anno.anno;
-        data = load(data_file); data = data.data;
+        data = load(data_file); data = data.data_f;
 
         for j = 2:size(anno, 1) - 1
             label = find(class == anno{j, 2});

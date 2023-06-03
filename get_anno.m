@@ -1,7 +1,8 @@
 addpath('./mcode')
 database = 0; % 0 mitdb 1 qtdb 2 lued
 if database == 0
-    file_index = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 111, 112, 113, 114, 115, 116, 117, 118, 119, 121, 122, 123, 124, 200, 201, 202, 203, 205, 207, 208, 209, 210, 212, 213, 214, 215, 217, 219, 220, 221, 222, 223, 228, 230, 231, 232, 233, 234];
+    file_index = [100, 101];
+%     file_index = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 111, 112, 113, 114, 115, 116, 117, 118, 119, 121, 122, 123, 124, 200, 201, 202, 203, 205, 207, 208, 209, 210, 212, 213, 214, 215, 217, 219, 220, 221, 222, 223, 228, 230, 231, 232, 233, 234];
     original_samplerate = 360;
     present_samplerate = 250;
     % classN = ['N', 'L', 'R'];
@@ -11,9 +12,9 @@ if database == 0
     classF = ['F'];
     classQ = ['f', 'Q'];
 
-    for i = 1:48
+    for i = 1:2
         anno = {};
-        file_name = strcat('./database/mitdb/', num2str(file_index(i)));
+        file_name = strcat('mitdb/', num2str(file_index(i)));
         [ann, anntype] = rdann(file_name, 'atr', []);
         ann = double(int32(ann * present_samplerate / original_samplerate));
         cnt = 0;
