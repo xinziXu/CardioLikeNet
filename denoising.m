@@ -20,13 +20,13 @@ if database == 0
         end
 
         % 12bit
-        ECG_12bit = quan_data(12, data);
+%         ECG_12bit = quan_data(12, data);
 
         % figure;
         % plot(ECG_12bit);
-        data_f = preprocessing_0phase(ECG_12bit,1,1);
+        data_f = filter_withoutQ(data);
         figure;
-        % plot(data_f)
+        plot(data_f)
         save_path = './denoised_mitdbdata/';
 
         if ~isfolder(save_path)
@@ -46,13 +46,13 @@ if database == 0
         data = data(:, 1);
 
         % 12bit
-        ECG_12bit = quan_data(12, data);
+%         ECG_12bit = quan_data(12, data);
 
         %     figure;
         %     plot(ECG_12bit);
-        data_f = preprocessing(ECG_12bit,1,1);
-        %     figure;
-        %     plot(data_f)
+        data_f = filter_withoutQ(data);
+        figure;
+        plot(data_f)
         save_path = './denoised_mitdbdata/';
 
         if ~isfolder(save_path)
@@ -61,6 +61,7 @@ if database == 0
 
         save(strcat(save_path, 'denoised_', num2str(DS2(i)), '_data.mat'), 'data_f');
     end
+
 
 elseif database == 1
 
