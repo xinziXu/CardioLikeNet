@@ -1,4 +1,4 @@
-function ecg_f = BF(ecg)
+function ecg_f = filter_withoutQ(ecg)
   fs=256;
   f1=0.5; %cuttoff low frequency to get rid of baseline wander
   f2=35; %cuttoff frequency to discard high frequency noise
