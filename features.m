@@ -1,19 +1,22 @@
 DS1 = [101,106,108,109,112,114,115,116,118,119,122,124,201,203,205,207,208,209,215,220,223,230];
 DS2 = [100,103,105,111,113,117,121,123,200,202,210,212,213,214,219,221,222,228,231,232,233,234];
-lines = [];
+features = [];
 for i = 1:22
     fprintf(strcat('--',num2str(i),'--\n'));
-    seg_file = strcat('./seg_file/',num2str(DS1(i)),'_seg.txt');
-    data = csvread(seg_file);
+    seg_file = strcat('./seg_file/',num2str(DS1(i)),'_seg.mat');
+    load(seg_file, 'lines');
     for j = 1:size(data,1)
-       line = [data(j,1:3) data(j,4:end)];       
-       lines = [lines;line];
+        rr_info = lines(j,1:3);
+        seg = lines(j, 4:end)
+        feature = compression(seg) % write yourself
+        features = [features; seg feature]
     end 
 end
 
 train_file = 'train_features_all.txt';
-csvwrite(train_file,lines);
+csvwrite(train_file,features);
 
+% for testing, the same as the training
 lines = [];
 for i = 1:22
     fprintf(strcat('--',num2str(i),'--\n'));
