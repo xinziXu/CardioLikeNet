@@ -7,7 +7,7 @@ nb=[100,101,103,105,106,107,108,109,111,112,113,114,115,116,117,118,119,121,122,
 nb = [100];
 PATH = '/Users/xuxinzi/Documents/research/ECG_2020/project/MITBIHdata'; % need to change according to your data path
 plot_index=2538;
-nocha=2; %é€šé“æ•°
+nocha=2; %Í¨µÀÊı
 original_samplerate=360;
 present_samplerate=256;
 
@@ -16,7 +16,7 @@ for i=1:length(nb)
 % for i = 1
 filenum=nb(i)
 
-%è¯»æ•°æ®å¹¶é™é‡‡æ ·
+%¶ÁÊı¾İ²¢½µ²ÉÑù
 [ecg_data,ANNOT,ATRTIME,RRtime] = read_data_5classes(filenum,PATH);
 sampletime=(1:length(ecg_data))/original_samplerate;
 resampletime=1/present_samplerate:1/present_samplerate:(length(ecg_data)/original_samplerate);
@@ -45,7 +45,22 @@ ANNOT_qrs= zhaolabel(qrs_i_raw,rpeak_time+6,ANNOT);
 
  
 [ecg_seg,annot,feature_matrix,annot_pre] = save_features_v2(ecg_h,ANNOT_qrs,qrs_i_raw',pole_buf,q_on,s_off,t_pre,p_cur,t_cur,p_post,filenum);
+ecg_seg_filename=['./results/segs/',num2str(filenum)];
+annot_filename=['./results/annot/',num2str(filenum)];
+feature_matrix_filename=['./results/feature_matrix/',num2str(filenum)];
 
 
+if ~exist(ecg_seg_filename,'dir')
+    mkdir(ecg_seg_filename);
+end
+if ~exist(annot_filename,'dir')
+    mkdir(annot_filename);
+end
+if ~exist(feature_matrix_filename,'dir')
+    mkdir(feature_matrix_filename);
+end
+save([ecg_seg_filename,'.mat'],'ecg_seg');
+save([annot_filename,'.mat'],'annot');
+save([feature_matrix_filename,'.mat'],'feature_matrix');
 end
 
